@@ -1218,6 +1218,40 @@ body {
     line-height: 1.2;
     margin-top: 2px;
 }
+        /* --- FIX PARA PANTALLAS DE PC / ESCRITORIO --- */
+@media (min-width: 768px) {
+    /* Enmarca la sección principal en PC */
+    .foto-inicio {
+        max-width: 650px !important;
+        margin: 40px auto !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Evita que las imágenes con la clase foto-entrada-celular se agranden al 100% de la pantalla */
+    .foto-entrada-celular {
+        max-width: 650px !important;
+        margin: 0 auto !important;
+        object-fit: cover;
+    }
+
+    /* Limita el contenedor del preloader/portada en escritorio */
+    #preloader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #111; /* Fondo oscuro de relleno para bordes en PC */
+    }
+
+    .contenedor-portada {
+        max-width: 500px;
+        height: 90vh;
+        max-height: 850px;
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+}
 </style>
 </head>
 <body>

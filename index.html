@@ -1218,38 +1218,48 @@ body {
     line-height: 1.2;
     margin-top: 2px;
 }
-        /* --- FIX PARA PANTALLAS DE PC / ESCRITORIO --- */
+/* =========================================================
+   FIX GLOBAL PARA PC / ESCRITORIO
+   (Enmarca toda la invitación en formato tarjeta móvil)
+   ========================================================= */
 @media (min-width: 768px) {
-    /* Enmarca la sección principal en PC */
-    .foto-inicio {
-        max-width: 650px !important;
-        margin: 40px auto !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    /* 1. Fondo elegante para la pantalla de PC alrededor de la tarjeta */
+    html {
+        background-color: #1a1613;
     }
 
-    /* Evita que las imágenes con la clase foto-entrada-celular se agranden al 100% de la pantalla */
-    .foto-entrada-celular {
-        max-width: 650px !important;
+    /* 2. Limita el ancho total del cuerpo de la invitación */
+    body {
+        max-width: 480px !important;
         margin: 0 auto !important;
-        object-fit: cover;
-    }
-
-    /* Limita el contenedor del preloader/portada en escritorio */
-    #preloader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #111; /* Fondo oscuro de relleno para bordes en PC */
-    }
-
-    .contenedor-portada {
-        max-width: 500px;
-        height: 90vh;
-        max-height: 850px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+        min-height: 100vh;
         position: relative;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 3. Contención del Preloader / Portada inicial en PC */
+    #preloader {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        max-width: 480px !important;
+        width: 100% !important;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 4. Ajuste para imágenes principales y secciones */
+    .foto-inicio, 
+    .seccion-foto-destacada {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .foto-inicio img,
+    .foto-entrada-celular,
+    .foto-principal {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 650px !important;
+        object-fit: cover !important;
     }
 }
 </style>

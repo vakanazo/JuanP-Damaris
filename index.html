@@ -1218,50 +1218,6 @@ body {
     line-height: 1.2;
     margin-top: 2px;
 }
-/* =========================================================
-   FIX GLOBAL PARA PC / ESCRITORIO
-   (Enmarca toda la invitación en formato tarjeta móvil)
-   ========================================================= */
-@media (min-width: 768px) {
-    /* 1. Fondo elegante para la pantalla de PC alrededor de la tarjeta */
-    html {
-        background-color: #1a1613;
-    }
-
-    /* 2. Limita el ancho total del cuerpo de la invitación */
-    body {
-        max-width: 480px !important;
-        margin: 0 auto !important;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
-        min-height: 100vh;
-        position: relative;
-    }
-
-    /* 3. Contención del Preloader / Portada inicial en PC */
-    #preloader {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        max-width: 480px !important;
-        width: 100% !important;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
-    }
-
-    /* 4. Ajuste para imágenes principales y secciones */
-    .foto-inicio, 
-    .seccion-foto-destacada {
-        max-width: 100% !important;
-        margin: 0 auto !important;
-    }
-
-    .foto-inicio img,
-    .foto-entrada-celular,
-    .foto-principal {
-        width: 100% !important;
-        height: auto !important;
-        max-height: 650px !important;
-        object-fit: cover !important;
-    }
-}
 </style>
 </head>
 <body>

@@ -1166,6 +1166,61 @@ body {
         }
         .linea-corazon span { font-size: 1rem; line-height: 1; }
         .cita-biblica { font-size: 0.65rem; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
+        /* --- COLORES RESERVADOS --- */
+
+.colores-reservados {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    margin-top: 5px;
+}
+
+.color-reservado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 75px;
+}
+
+.muestra-color {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-bottom: 7px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.muestra-blanco {
+    background-color: #ffffff;
+    border: 1px solid #d8d0c5;
+    box-sizing: border-box;
+}
+
+.muestra-champagne {
+    background-color: #d6b588;
+}
+
+.muestra-crema {
+    background-color: #d4c4a6;
+}
+
+.color-reservado span {
+    font-size: 0.42rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #7a5a35;
+    line-height: 1.2;
+}
+
+.color-reservado small {
+    font-size: 0.42rem;
+    color: #8d7a64;
+    line-height: 1.2;
+    margin-top: 2px;
+}
 </style>
 </head>
 <body>
@@ -1486,12 +1541,39 @@ Les invitamos a elegir un atuendo acorde con la ocasión y disfrutar de este dí
      Traje formal con camisa y corbata.
 Agradecemos vestir acorde con el código de vestimenta de nuestra celebración.
         </p>
-              <div style="width: 100px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.8;"></div>
-      <div style="margin-bottom: 25px;"></div>
-                <p style="font-size: 0.6rem; line-height: 1.6; color: #5d4936; margin-bottom: 10px; font-style: italic;">
-      *Nos reservamos el color Blanco para la novia, Crema para el novio y Champagne para la corte de honor.
-        </p>
-      </div>  
+<div style="width: 100px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.8;"></div>
+
+<p style="
+    font-size: 0.6rem;
+    line-height: 1.6;
+    color: #5d4936;
+    margin: 0 0 18px;
+    font-style: italic;">
+    *Nos reservamos los siguientes colores:
+</p>
+
+<!-- REFERENCIA VISUAL DE COLORES -->
+<div class="colores-reservados">
+
+    <div class="color-reservado">
+        <div class="muestra-color muestra-blanco"></div>
+        <span>NOVIA</span>
+        <small>Blanco</small>
+    </div>
+
+    <div class="color-reservado">
+        <div class="muestra-color muestra-champagne"></div>
+        <span>CORTE DE HONOR</span>
+        <small>Champagne</small>
+    </div>
+
+    <div class="color-reservado">
+        <div class="muestra-color muestra-crema"></div>
+        <span>NOVIO</span>
+        <small>Beige arena /Marfil Champagne</small>
+    </div>
+
+</div>
 
     </div> <!-- Fin especificaciones -->
   </div> <!-- Fin tarjeta-dress-blanca -->

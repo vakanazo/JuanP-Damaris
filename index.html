@@ -240,18 +240,28 @@
         
 .nombres-tit { 
     font-family: 'Bodoni Moda', serif; 
-    /* Tamaño ultra-microscópico */
-    font-size: clamp(0.2rem, 0.7vw, 0.25rem); 
-    margin: 3px 0 0 0; /* Margen mínimo para que no quede flotando */
-    font-weight: 20; 
-    color:#8d7a64; 
+    font-size: clamp(1.8rem, 8vw, 3rem); 
+    margin: 10px 0 0 0; 
+    font-weight: 400; 
+    color: #8d7a64; 
     position: relative; 
     animation: revealNames 2.5s cubic-bezier(0.2, 0, 0.2, 1) forwards;
     animation-delay: 0.5s;
     opacity: 0;
-    line-height: 1; 
-    text-shadow: none; /* Sin sombra para mantener la nitidez en tamaño mini */
+    line-height: 1.1; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px;
 }
+
+.ampersand-tit {
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 0.8em !important;
+    color: #8d7a64;
+    margin: 2px 0;
+}
+
         /* Ajustamos el botón de música para que sea visible sobre la foto */
         .play-button {
             width: 45px; height: 45px;
@@ -329,18 +339,6 @@
             color: #8d7a64;
             animation: fadeInCursive 1.5s ease-out forwards;
             opacity: 0;
-        }
-        
-        .nombres-tit { 
-            font-family: 'Bodoni Moda', serif; 
-            font-size: clamp(2.5rem, 12vw, 4.2rem); 
-            margin: 5px 0 0 0; 
-            font-weight: 400; 
-            position: relative; 
-            animation: revealNames 2.5s cubic-bezier(0.2, 0, 0.2, 1) forwards;
-            animation-delay: 0.5s;
-            opacity: 0;
-            line-height: 1.1;
         }
 
         /* --- SECCIÓN 2: ESCENA DEL SOBRE (CORREGIDA) --- */
@@ -664,8 +662,22 @@
 
         .seccion-final { width: 100%; padding: 60px 20px 40px; background-image: url('fondo1.webp'); background-size: cover; background-position: center; text-align: center; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
         .divisor-elegante { width: 50px; height: 1px; background-color: #8d7a64; margin-bottom: 25px; opacity: 0.6; }
-        .texto-final { font-family: 'Tenor Sans', sans-serif; font-size: 1rem; letter-spacing: 4px; color: #5d4936; text-transform: uppercase; margin-bottom: 10px; font-weight: 300; }
-        .firmas-final { font-family: 'Great Vibes', cursive; font-size: clamp(3rem, 12vw, 4rem); color: #8d7a64; margin: 0; line-height: 1.2; }
+        .texto-final { color: var(--champagne-oscuro); font-weight: 600; }
+        .firmas-final { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: clamp(2.5rem, 10vw, 3.5rem); 
+            color: #8d7a64; 
+            margin: 0; 
+            line-height: 1.2; 
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 2px;
+        }
+        .ampersand-firmas {
+            font-size: 0.8em !important;
+            line-height: 1;
+        }
         .aggradecimiento { font-size: 0.65rem; letter-spacing: 2px; margin-top: 25px; opacity: 0.5; font-style: italic; }
         .creditos { width: 100%; text-align: center; padding: 20px 10px; font-size: 0.5rem; letter-spacing: 1px; color: #1c1006; opacity: 0.4; text-transform: uppercase; box-sizing: border-box;}
 
@@ -1064,18 +1076,7 @@ html,
 body {
     overflow-x: hidden;
 }
-/* Solo PC */
-@media (min-width: 768px) {
 
-    .foto-inicio img{
-        width: 700px;
-        max-width: 700px;
-        height: auto;
-        margin: 0 auto;
-        display: block;
-    }
-
-}
 .imagen-boda img{
     display:block;
     width:100%;
@@ -1218,17 +1219,16 @@ body {
     line-height: 1.2;
     margin-top: 2px;
 }
+
 /* =========================================================
    FIX GLOBAL PARA PC / ESCRITORIO
    (Enmarca toda la invitación en formato tarjeta móvil)
    ========================================================= */
 @media (min-width: 768px) {
-    /* 1. Fondo elegante para la pantalla de PC alrededor de la tarjeta */
     html {
         background-color: #1a1613;
     }
 
-    /* 2. Limita el ancho total del cuerpo de la invitación */
     body {
         max-width: 480px !important;
         margin: 0 auto !important;
@@ -1237,7 +1237,6 @@ body {
         position: relative;
     }
 
-    /* 3. Contención del Preloader / Portada inicial en PC */
     #preloader {
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -1246,7 +1245,6 @@ body {
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
     }
 
-    /* 4. Ajuste para imágenes principales y secciones */
     .foto-inicio, 
     .seccion-foto-destacada {
         max-width: 100% !important;
@@ -1304,50 +1302,17 @@ body {
     <audio id="musica-boda" loop>
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
-<!--
-    <div class="seccion-padres reveal" style="padding: 60px 30px; text-align: center; background-color: #ffffff;">
-
-    <div class="divisor-elegante" style="width: 50px; height: 1px; background-color: #8d7a64; margin: 0 auto 25px; opacity: 0.6;"></div>
-
-    <div style="max-width: 500px; margin: 0 auto;">
-        
-        <p style="
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-            line-height: 1.8;
-            color: #5d4936;
-            margin-bottom: 25px;">
-            
-            “Además, uno que anda solo puede ser vencido, pero dos juntos pueden hacerle frente al agresor. 
-            Y una cuerda triple* no se rompe fácilmente.”
-            
-        </p>
-
-        <p style="
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #8d7a64;
-            margin: 0;">
-            
-            ECLESIASTÉS 4:12
-            
-        </p>
-
-    </div>
-
-    <div class="divisor-elegante" style="width: 50px; height: 1px; background-color: #8d7a64; margin: 25px auto 0; opacity: 0.6;"></div>
-
-</div>
--->
 
     <div class="header-section">
         <div class="music-player" id="boton-musica">
             <div class="play-button"></div>
         </div>
         <p class="cursive">¡Nos casamos!</p>
-        <h1 class="nombres-tit">Juan Pablo & Damaris</h1>
+        <h1 class="nombres-tit">
+            <span>Juan Pablo</span>
+            <span class="ampersand-tit">&amp;</span>
+            <span>Damaris</span>
+        </h1>
 
     </div>
 
@@ -1389,8 +1354,8 @@ body {
          mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
          ">
 </section>
-<!-- SECCIÓN: PADRES -->
-  <!-- CONTENEDOR PRINCIPAL -->
+
+    <!-- SECCIÓN: PADRES -->
     <div class="seccion-padres reveal" style="padding: 60px 30px; text-align: center; background-color: #ffffff; font-family: 'Cinzel', serif;">
 
         <!-- Bloque Superior: Con la bendición -->
@@ -1416,70 +1381,69 @@ body {
 
         <!-- Bloque Medio: Padres de la Novia -->
         <div style="margin-bottom: 40px;">
-    <p style="font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; color: #8d7a64; font-weight: 600;">
-        Padres de la Novia
-    </p>
+            <p style="font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; color: #8d7a64; font-weight: 600;">
+                Padres de la Novia
+            </p>
 
-    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: #5d4936; line-height: 1.6;">
-      Andres Figueroa Sancan <br>
-      Estrella Valeriano Castro
-    </p>
-</div>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: #5d4936; line-height: 1.6;">
+              Andres Figueroa Sancan <br>
+              Estrella Valeriano Castro
+            </p>
+        </div>
 
-        <!-- Divisor inferior (ya estaba bien, solo ajusté el margen) -->
+        <!-- Divisor inferior -->
         <div class="divisor-elegante" style="width: 50px; height: 1px; background-color: #8d7a64; margin: 0 auto 30px; opacity: 0.6;"></div>
 
-        <!-- Bloque Inferior: Nombres de los Novios -->
-     <!-- BLOQUE INFERIOR: Nombres de los Novios (Estilo Minimalista) -->
-<div style="margin-top: 50px; text-align: center; font-family: 'Cinzel', serif;">
+        <!-- BLOQUE INFERIOR: Nombres de los Novios (Estilo Minimalista) -->
+        <div style="margin-top: 50px; text-align: center; font-family: 'Cinzel', serif;">
 
-    <!-- Nombre 1 -->
-    <p style="
-        font-size: 1.3rem; 
-        line-height: 1; 
-        color: #5d4936; 
-        letter-spacing: 10px; 
-        text-transform: uppercase; 
-        margin-bottom: 10px; 
-        font-weight: 600;">
-        JUAN PABLO
-    </p>
+            <!-- Nombre 1 -->
+            <p style="
+                font-size: 1.3rem; 
+                line-height: 1; 
+                color: #5d4936; 
+                letter-spacing: 10px; 
+                text-transform: uppercase; 
+                margin-bottom: 10px; 
+                font-weight: 600;">
+                JUAN PABLO
+            </p>
 
-    <!-- Contenedor de la línea divisora y el ampersand -->
-    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px; width: 100%; max-width: 300px; margin: 0 auto;">
-        
-        <!-- Línea izquierda -->
-        <div style="flex-grow: 1; height: 0.5px; background-color: #5d4936; opacity: 0.5;"></div>
-        
-        <!-- Ampersand (&) -->
-        <span style="
-            font-family: 'Cormorant Garamond', serif; /* Usamos una serif para el & para que resalte suavemente */
-            font-size: 1rem; 
-            color: #5d4936; 
-            margin: 0 15px; 
-            font-style: italic; 
-            opacity: 0.7;">
-            &
-        </span>
-        
-        <!-- Línea derecha -->
-        <div style="flex-grow: 1; height: 0.5px; background-color: #5d4936; opacity: 0.5;"></div>
-        
-    </div>
+            <!-- Contenedor de la línea divisora y el ampersand -->
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px; width: 100%; max-width: 300px; margin: 0 auto;">
+                
+                <!-- Línea izquierda -->
+                <div style="flex-grow: 1; height: 0.5px; background-color: #5d4936; opacity: 0.5;"></div>
+                
+                <!-- Ampersand (&) -->
+                <span style="
+                    font-family: 'Cormorant Garamond', serif;
+                    font-size: 1rem; 
+                    color: #5d4936; 
+                    margin: 0 15px; 
+                    font-style: italic; 
+                    opacity: 0.7;">
+                    &amp;
+                </span>
+                
+                <!-- Línea derecha -->
+                <div style="flex-grow: 1; height: 0.5px; background-color: #5d4936; opacity: 0.5;"></div>
+                
+            </div>
 
-    <!-- Nombre 2 -->
-    <p style="
-        font-size: 1.3rem; 
-        line-height: 1; 
-        color: #5d4936; 
-        letter-spacing: 10px; 
-        text-transform: uppercase; 
-        margin-top: 10px; 
-        font-weight: 600;">
-        DAMARIS
-    </p>
+            <!-- Nombre 2 -->
+            <p style="
+                font-size: 1.3rem; 
+                line-height: 1; 
+                color: #5d4936; 
+                letter-spacing: 10px; 
+                text-transform: uppercase; 
+                margin-top: 10px; 
+                font-weight: 600;">
+                DAMARIS
+            </p>
 
-</div>
+        </div>
 
     </div>
 
@@ -1507,8 +1471,6 @@ body {
         </div>
     </div>
 
-
-    <!-- Se omitió la sección de itinerario por falta de detalles específicos de tiempos -->
 <section class="foto-inicio" style="
     background-image: url('fondo100.webp');
     background-size: cover;
@@ -1564,8 +1526,6 @@ body {
         <p style="font-size: 0.6rem; line-height: 1.4; color: #5d4936; margin-bottom: 10px;">
          Formal, vestido largo.
 Les invitamos a elegir un atuendo acorde con la ocasión y disfrutar de este día tan especial junto a nosotros.
-
-   
         </p>
       </div>
 
@@ -1707,7 +1667,11 @@ Agradecemos vestir acorde con el código de vestimenta de nuestra celebración.
     <div class="seccion-final reveal">
         <div class="divisor-elegante"></div>
         <p class="texto-final">Te esperamos</p>
-        <h2 class="firmas-final">Juan Pablo & Damaris</h2>
+        <h2 class="firmas-final">
+            <span>Juan Pablo</span>
+            <span class="ampersand-firmas">&amp;</span>
+            <span>Damaris</span>
+        </h2>
         <p class="agradecimiento">¡Gracias por formar parte de nuestra historia!</p>
     </div>
 

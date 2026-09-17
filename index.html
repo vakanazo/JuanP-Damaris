@@ -610,8 +610,22 @@
         .agradecimiento { font-size: 0.65rem; letter-spacing: 2px; margin-top: 25px; opacity: 0.5; font-style: italic; }
         .creditos { width: 100%; text-align: right; padding: 12px 18px 20px; font-size: 0.5rem; letter-spacing: 1px; color: #888; text-transform: uppercase; box-sizing: border-box;}
 
+        .nombre-pareja .nombre { white-space: nowrap; }
+        .nombre-pareja .ampersand-pareja { display: inline-block; margin: 0 0.18em; }
+
         /* MEDIA QUERIES PARA MÓVIL */
         @media (max-width: 480px) {
+            .nombre-pareja {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nombre-pareja .ampersand-pareja {
+                line-height: 0.7;
+                margin: 0.12em 0;
+            }
+
             .sobre-container {
                 aspect-ratio: 1 / 1.3;
             }
@@ -802,7 +816,11 @@
             transition: .8s;
         }
 
-        #preloader.hide { opacity:0; visibility:hidden; }
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
         .preloader-full { width:100%; height:100%; object-fit:cover; display:block; }
 
         .seccion-padres,
@@ -993,7 +1011,7 @@
         <div class="play-button"></div>
     </div>
     <p class="cursive">¡Nos casamos!</p>
-    <h1 class="nombres-tit">Juan Pablo & Damarís</h1>
+    <h1 class="nombres-tit nombre-pareja"><span class="nombre">Juan Pablo</span><span class="ampersand-pareja">&amp;</span><span class="nombre">Damarís</span></h1>
 </div>
 
 <div class="escena-invitacion">
@@ -1003,7 +1021,7 @@
         <img src="sello.png" class="sello-lacre" alt="Sello">
         <div class="tarjeta-blanca">
             <p class="lema">HEMOS DECIDIDO DECIR SÍ PARA TODA LA VIDA</p>
-            <h2 class="nombre-tarjeta">Juan Pablo & Damarís</h2>
+            <h2 class="nombre-tarjeta nombre-pareja"><span class="nombre">Juan Pablo</span><span class="ampersand-pareja">&amp;</span><span class="nombre">Damarís</span></h2>
             <p class="honor">Tenemos el honor de invitarlos a celebrar nuestro matrimonio el día</p>
             <div class="fecha-wrap">
                 <span class="mes-dia">SÁBADO</span>
@@ -1254,7 +1272,7 @@
 <div class="seccion-final" data-aos="fade-up">
     <div class="divisor-elegante"></div>
     <p class="texto-final">Te esperamos</p>
-    <h2 class="firmas-final">Juan Pablo & Damarís</h2>
+    <h2 class="firmas-final nombre-pareja"><span class="nombre">Juan Pablo</span><span class="ampersand-pareja">&amp;</span><span class="nombre">Damarís</span></h2>
     <p class="agradecimiento">¡Gracias por formar parte de nuestra historia!</p>
 </div>
 
@@ -1280,28 +1298,38 @@
         }
     });
 
+    const runWhenIdle = (callback) => {
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(callback, { timeout: 1500 });
+        } else {
+            window.setTimeout(callback, 700);
+        }
+    };
+
     preloader.addEventListener("click", () => {
         preloader.classList.add("hide");
 
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
-        });
-
         btnMusica.style.display = "flex";
 
-        musica.play().then(() => {
-            btnMusica.classList.add("music-playing");
-        }).catch(err => console.log(err));
+        // Deja que termine la transición de la portada antes de decodificar audio
+        // y de recalcular las animaciones de toda la página.
+        window.setTimeout(() => {
+            musica.play().then(() => {
+                btnMusica.classList.add("music-playing");
+            }).catch(() => {});
+        }, 850);
 
-        // Inicializamos AOS de manera diferida para asegurar fluidez
-        setTimeout(() => {
-            AOS.init({
-                duration: 1000,
-                once: true
+        // AOS hace mediciones de layout. Se ejecuta cuando el navegador ya está
+        // libre; init() ya refresca sus elementos, por eso no se llama refresh()
+        // una segunda vez.
+        window.setTimeout(() => {
+            runWhenIdle(() => {
+                AOS.init({
+                    duration: 1000,
+                    once: true
+                });
             });
-            AOS.refresh();
-        }, 200);
+        }, 850);
 
     }, { once: true });
 

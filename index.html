@@ -722,6 +722,17 @@
             }
         }
 
+        /* En móvil no se inicializa AOS para no bloquear el primer gesto de
+           desplazamiento. AOS oculta por defecto los elementos con data-aos;
+           esta regla los mantiene visibles sin ejecutar sus mediciones. */
+        @media (max-width: 768px) {
+            [data-aos] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
         /* GALERÍA */
         .seccion-galeria {
             padding: 60px 20px;
@@ -781,26 +792,25 @@
         }
 
         .scroll-hint {
-            position: fixed;
-            bottom: max(18px, env(safe-area-inset-bottom));
+            position: absolute;
+            top: calc(100vh - 86px);
             left: 50%;
             z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            min-width: 112px;
-            padding: 8px 14px;
-            border: 1px solid rgba(122, 90, 53, 0.28);
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.88);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
-            color: #7a5a35;
+            padding: 4px 10px;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.56rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
             animation: indicarScroll 2s ease-in-out infinite;
         }
 
@@ -1360,23 +1370,33 @@
         musicHint.hidden = false;
         scrollHint.hidden = false;
 
-        setTimeout(() => {
-            AOS.init({
-                duration: 1000,
-                once: true
-            });
-            AOS.refresh();
-        }, 200);
+        // AOS recalcula la geometría de toda la página. En móvil ese trabajo
+        // coincide con el primer gesto táctil y provoca el tirón; se mantiene
+        // únicamente en pantallas de escritorio.
+        if (window.innerWidth > 768) {
+            setTimeout(() => {
+                AOS.init({
+                    duration: 1000,
+                    once: true
+                });
+                AOS.refresh();
+            }, 200);
+        }
 
     }, { once: true });
 
     scrollHint.addEventListener("click", () => {
+        scrollHint.hidden = true;
         window.scrollBy({ top: window.innerHeight * 0.75, behavior: "smooth" });
     });
 
     window.addEventListener("scroll", () => {
         if (window.scrollY > 80) scrollHint.hidden = true;
     }, { passive: true });
+
+    document.addEventListener("touchmove", () => {
+        scrollHint.hidden = true;
+    }, { passive: true, once: true });
 
     // --- CONTADOR DE TIEMPO ---
     const weddingDate = new Date("December 12, 2026 16:00:00").getTime();

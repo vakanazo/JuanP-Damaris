@@ -774,21 +774,10 @@
             position: relative;
             width: 50px;
             height: 50px;
-            margin: 20px auto 4px;
+            margin: 20px auto;
             display: none;
             align-items: center;
             justify-content: center;
-        }
-
-        .music-hint {
-            display: block;
-            margin: 0 auto 14px;
-            color: #8d7a64;
-            font-size: 0.58rem;
-            font-weight: 600;
-            letter-spacing: 1.4px;
-            text-align: center;
-            text-transform: uppercase;
         }
 
         .scroll-hint {
@@ -1067,7 +1056,6 @@
     <div class="music-player" id="boton-musica">
         <div class="play-button"></div>
     </div>
-    <span id="music-hint" class="music-hint" hidden>Toca para reproducir</span>
     <p class="cursive">¡Nos casamos!</p>
     <h1 class="nombres-tit nombre-pareja"><span class="nombre">Juan Pablo</span><span class="ampersand-pareja">&amp;</span><span class="nombre">Damarís</span></h1>
 </div>
@@ -1345,7 +1333,6 @@
     const musica = document.getElementById("musica-boda");
     const btnMusica = document.getElementById("boton-musica");
     const preloader = document.getElementById("preloader");
-    const musicHint = document.getElementById("music-hint");
     const scrollHint = document.getElementById("scroll-hint");
 
     btnMusica.addEventListener("click", () => {
@@ -1367,8 +1354,11 @@
         });
 
         btnMusica.style.display = "flex";
-        musicHint.hidden = false;
         scrollHint.hidden = false;
+
+        musica.play().then(() => {
+            btnMusica.classList.add("music-playing");
+        }).catch(err => console.log(err));
 
         // AOS recalcula la geometría de toda la página. En móvil ese trabajo
         // coincide con el primer gesto táctil y provoca el tirón; se mantiene
@@ -1383,6 +1373,10 @@
             }, 200);
         }
 
+        const hideScrollHint = () => { scrollHint.hidden = true; };
+        window.addEventListener("scroll", hideScrollHint, { passive: true, once: true });
+        document.addEventListener("touchstart", hideScrollHint, { passive: true, once: true });
+
     }, { once: true });
 
     scrollHint.addEventListener("click", () => {
@@ -1390,13 +1384,6 @@
         window.scrollBy({ top: window.innerHeight * 0.75, behavior: "smooth" });
     });
 
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 80) scrollHint.hidden = true;
-    }, { passive: true });
-
-    document.addEventListener("touchmove", () => {
-        scrollHint.hidden = true;
-    }, { passive: true, once: true });
 
     // --- CONTADOR DE TIEMPO ---
     const weddingDate = new Date("December 12, 2026 16:00:00").getTime();

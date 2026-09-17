@@ -602,6 +602,36 @@
         .confirmacion-texto h2 { font-family: 'Alex Brush', cursive; font-size: clamp(2rem, 10vw, 2.8rem); margin-bottom: 15px; font-weight: normal; }
         .confirmacion-texto p { font-size: 0.95rem; font-weight: 600; line-height: 1.6; margin-bottom: 25px; letter-spacing: 0.5px; }
         .btn-blanco-outline { display: inline-block; padding: 12px 30px; border: 2px solid #fdfaf5; border-radius: 30px; color: #fdfaf5; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        #contenedor-confirmar { position: relative; display: inline-block; }
+        #contenedor-confirmar::before,
+        #contenedor-confirmar::after {
+            position: absolute;
+            top: 50%;
+            color: #fdfaf5;
+            font-size: 1.55rem;
+            font-weight: 400;
+            line-height: 1;
+            pointer-events: none;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        }
+        #contenedor-confirmar::before {
+            content: '→';
+            right: calc(100% + 12px);
+            animation: flechaConfirmarIzquierda 1.6s ease-in-out infinite;
+        }
+        #contenedor-confirmar::after {
+            content: '←';
+            left: calc(100% + 12px);
+            animation: flechaConfirmarDerecha 1.6s ease-in-out infinite;
+        }
+        @keyframes flechaConfirmarIzquierda {
+            0%, 100% { transform: translateY(-50%) translateX(-4px); opacity: 0.55; }
+            50% { transform: translateY(-50%) translateX(4px); opacity: 1; }
+        }
+        @keyframes flechaConfirmarDerecha {
+            0%, 100% { transform: translateY(-50%) translateX(4px); opacity: 0.55; }
+            50% { transform: translateY(-50%) translateX(-4px); opacity: 1; }
+        }
 
         .seccion-final { width: 100%; padding: 60px 20px 40px; background-image: url('fondo1.webp'); background-size: cover; background-position: center; text-align: center; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
         .divisor-elegante { width: 50px; height: 1px; background-color: #8d7a64; margin-bottom: 25px; opacity: 0.6; }

@@ -804,6 +804,7 @@
         }
 
         .scroll-hint-arrow { font-size: 1.25rem; line-height: 0.8; }
+        .scroll-hint[hidden] { display: none !important; }
 
         @keyframes indicarScroll {
             0%, 100% { transform: translateX(-50%) translateY(0); }
@@ -1003,7 +1004,7 @@
         }
 
         .muestra-blanco { background-color: #ffffff; border: 1px solid #d8d0c5; box-sizing: border-box; }
-        .muestra-terracota { background-color: #E35336; }
+        .muestra-champagne { background-color: #E35336; }
         .muestra-crema { background-color: #d4c4a6; }
 
         .color-reservado span { font-size: 0.42rem; letter-spacing: 1px; font-weight: 700; color: #7a5a35; line-height: 1.2; }
@@ -1376,6 +1377,7 @@
         const hideScrollHint = () => { scrollHint.hidden = true; };
         window.addEventListener("scroll", hideScrollHint, { passive: true, once: true });
         document.addEventListener("touchstart", hideScrollHint, { passive: true, once: true });
+        document.addEventListener("pointerdown", hideScrollHint, { passive: true, once: true });
 
     }, { once: true });
 

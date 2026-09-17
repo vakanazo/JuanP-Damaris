@@ -763,10 +763,52 @@
             position: relative;
             width: 50px;
             height: 50px;
-            margin: 20px auto;
+            margin: 20px auto 4px;
             display: none;
             align-items: center;
             justify-content: center;
+        }
+
+        .music-hint {
+            display: block;
+            margin: 0 auto 14px;
+            color: #8d7a64;
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: max(18px, env(safe-area-inset-bottom));
+            left: 50%;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            min-width: 112px;
+            padding: 8px 14px;
+            border: 1px solid rgba(122, 90, 53, 0.28);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+            color: #7a5a35;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.56rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: indicarScroll 2s ease-in-out infinite;
+        }
+
+        .scroll-hint-arrow { font-size: 1.25rem; line-height: 0.8; }
+
+        @keyframes indicarScroll {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(7px); }
         }
 
         @media (max-width: 480px) {
@@ -976,6 +1018,11 @@
     <div class="texto-tocar">Abrir Invitación</div>
 </div>
 
+<button id="scroll-hint" class="scroll-hint" type="button" hidden aria-label="Deslizar hacia abajo para ver más de la invitación">
+    <span>Desliza para ver más</span>
+    <span class="scroll-hint-arrow" aria-hidden="true">⌄</span>
+</button>
+
 <section class="foto-inicio foto-biblica" style="
     width: 100%;
     background: url('fondo100.webp') center center / cover no-repeat;
@@ -1010,6 +1057,7 @@
     <div class="music-player" id="boton-musica">
         <div class="play-button"></div>
     </div>
+    <span id="music-hint" class="music-hint" hidden>Toca para reproducir</span>
     <p class="cursive">¡Nos casamos!</p>
     <h1 class="nombres-tit nombre-pareja"><span class="nombre">Juan Pablo</span><span class="ampersand-pareja">&amp;</span><span class="nombre">Damarís</span></h1>
 </div>
@@ -1287,6 +1335,8 @@
     const musica = document.getElementById("musica-boda");
     const btnMusica = document.getElementById("boton-musica");
     const preloader = document.getElementById("preloader");
+    const musicHint = document.getElementById("music-hint");
+    const scrollHint = document.getElementById("scroll-hint");
 
     btnMusica.addEventListener("click", () => {
         if (musica.paused) {
@@ -1307,10 +1357,8 @@
         });
 
         btnMusica.style.display = "flex";
-
-        musica.play().then(() => {
-            btnMusica.classList.add("music-playing");
-        }).catch(err => console.log(err));
+        musicHint.hidden = false;
+        scrollHint.hidden = false;
 
         setTimeout(() => {
             AOS.init({
@@ -1321,6 +1369,14 @@
         }, 200);
 
     }, { once: true });
+
+    scrollHint.addEventListener("click", () => {
+        window.scrollBy({ top: window.innerHeight * 0.75, behavior: "smooth" });
+    });
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 80) scrollHint.hidden = true;
+    }, { passive: true });
 
     // --- CONTADOR DE TIEMPO ---
     const weddingDate = new Date("December 12, 2026 16:00:00").getTime();

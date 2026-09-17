@@ -1298,38 +1298,27 @@
         }
     });
 
-    const runWhenIdle = (callback) => {
-        if ("requestIdleCallback" in window) {
-            window.requestIdleCallback(callback, { timeout: 1500 });
-        } else {
-            window.setTimeout(callback, 700);
-        }
-    };
-
     preloader.addEventListener("click", () => {
         preloader.classList.add("hide");
 
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
         btnMusica.style.display = "flex";
 
-        // Deja que termine la transición de la portada antes de decodificar audio
-        // y de recalcular las animaciones de toda la página.
-        window.setTimeout(() => {
-            musica.play().then(() => {
-                btnMusica.classList.add("music-playing");
-            }).catch(() => {});
-        }, 850);
+        musica.play().then(() => {
+            btnMusica.classList.add("music-playing");
+        }).catch(err => console.log(err));
 
-        // AOS hace mediciones de layout. Se ejecuta cuando el navegador ya está
-        // libre; init() ya refresca sus elementos, por eso no se llama refresh()
-        // una segunda vez.
-        window.setTimeout(() => {
-            runWhenIdle(() => {
-                AOS.init({
-                    duration: 1000,
-                    once: true
-                });
+        setTimeout(() => {
+            AOS.init({
+                duration: 1000,
+                once: true
             });
-        }, 850);
+            AOS.refresh();
+        }, 200);
 
     }, { once: true });
 

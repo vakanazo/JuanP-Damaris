@@ -597,6 +597,23 @@
         .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .timer-item span { display: block; font-family: 'Tenor Sans', sans-serif; font-size: clamp(1.1rem, 5vw, 1.5rem); }
         .timer-label { font-size: 0.65rem; margin-top: 5px; color: #7a5a35; font-weight: 700; text-transform: uppercase; }
+        .invitacion-personalizada {
+            width: min(100%, 410px);
+            margin: -10px 0 38px;
+            padding: 24px 20px;
+            box-sizing: border-box;
+            border-radius: 28px;
+            background: url('fondo100.webp') center / cover;
+            color: #7a5a35;
+            text-align: center;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+        }
+        .invitacion-personalizada[hidden] { display: none !important; }
+        .invitacion-etiqueta { margin: 0 0 8px; font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .nombre-invitado { margin: 0; font-family: 'Bodoni Moda', serif; font-size: clamp(1.6rem, 7vw, 2.25rem); font-weight: 400; line-height: 1.15; }
+        .pases-invitado { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(122, 90, 53, 0.28); font-size: 0.74rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .pases-invitado[hidden] { display: none !important; }
+        #num-pases { font-family: 'Tenor Sans', sans-serif; font-size: 1.1rem; }
 
         .confirmacion-texto { text-align: center; max-width: 450px; color: #fdfaf5; padding: 0 10px; }
         .confirmacion-texto h2 { font-family: 'Alex Brush', cursive; font-size: clamp(2rem, 10vw, 2.8rem); margin-bottom: 15px; font-weight: normal; }
@@ -1344,6 +1361,12 @@
         </div>
     </div>
 
+    <section id="invitacion-personalizada" class="invitacion-personalizada" hidden aria-label="Información personalizada de la invitación">
+        <p class="invitacion-etiqueta">Con mucho cariño invitamos a</p>
+        <p id="nombre-invitado" class="nombre-invitado"></p>
+        <p id="pases-invitado" class="pases-invitado" hidden>Pases reservados: <span id="num-pases"></span></p>
+    </section>
+
     <div class="confirmacion-texto">
         <h2>Confirmación de asistencia</h2>
         <p style="color: #ffffff; font-weight: 600; margin: 6px 0 25px;">Para nosotros es indispensable contar con tu valiosa presencia. Agradecemos confirmar tu asistencia hasta el 1 de Noviembre.</p>
@@ -1468,13 +1491,18 @@
     const urlDatos = new URLSearchParams(window.location.search);
     const nombre = urlDatos.get("invitado");
     const cantidad = urlDatos.get("pases");
+    const tarjetaInvitado = document.getElementById("invitacion-personalizada");
+    const pasesInvitado = document.getElementById("pases-invitado");
 
     if (nombre && document.getElementById("nombre-invitado")) {
         document.getElementById("nombre-invitado").innerText = nombre;
+        tarjetaInvitado.hidden = false;
     }
 
     if (cantidad && document.getElementById("num-pases")) {
         document.getElementById("num-pases").innerText = cantidad;
+        pasesInvitado.hidden = false;
+        tarjetaInvitado.hidden = false;
     }
 </script>
 

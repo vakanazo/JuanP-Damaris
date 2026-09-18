@@ -752,6 +752,24 @@
             }
         }
 
+        /* Animación ligera para móvil: sustituye AOS sin calcular toda la
+           página durante el desplazamiento. */
+        @media (max-width: 768px) {
+            [data-aos] {
+                opacity: 0 !important;
+                transform: translateY(28px) !important;
+                transition: opacity 700ms ease, transform 700ms ease !important;
+                will-change: opacity, transform;
+            }
+
+            [data-aos="zoom-in"] { transform: scale(0.96) !important; }
+
+            [data-aos].mobile-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
         /* GALERÍA */
         .seccion-galeria {
             padding: 60px 20px;
@@ -1355,12 +1373,35 @@
     const preloader = document.getElementById("preloader");
     const scrollHint = document.getElementById("scroll-hint");
 
-    // AOS se prepara mientras la portada todavía cubre la invitación. Así las
-    // animaciones siguen disponibles en móvil sin bloquear el primer scroll.
-    AOS.init({
-        duration: 1000,
-        once: true
-    });
+    const setupMobileReveal = () => {
+        const elements = document.querySelectorAll("[data-aos]");
+        const reveal = (element) => element.classList.add("mobile-reveal");
+
+        if (!("IntersectionObserver" in window)) {
+            elements.forEach(reveal);
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    reveal(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+
+        elements.forEach((element) => observer.observe(element));
+    };
+
+    if (window.innerWidth <= 768) {
+        setupMobileReveal();
+    } else {
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    }
 
     btnMusica.addEventListener("click", () => {
         if (musica.paused) {

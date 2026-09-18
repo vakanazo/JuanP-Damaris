@@ -752,17 +752,6 @@
             }
         }
 
-        /* En móvil no se inicializa AOS para no bloquear el primer gesto de
-           desplazamiento. AOS oculta por defecto los elementos con data-aos;
-           esta regla los mantiene visibles sin ejecutar sus mediciones. */
-        @media (max-width: 768px) {
-            [data-aos] {
-                opacity: 1 !important;
-                transform: none !important;
-                transition: none !important;
-            }
-        }
-
         /* GALERÍA */
         .seccion-galeria {
             padding: 60px 20px;
@@ -1366,6 +1355,13 @@
     const preloader = document.getElementById("preloader");
     const scrollHint = document.getElementById("scroll-hint");
 
+    // AOS se prepara mientras la portada todavía cubre la invitación. Así las
+    // animaciones siguen disponibles en móvil sin bloquear el primer scroll.
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
     btnMusica.addEventListener("click", () => {
         if (musica.paused) {
             musica.play();
@@ -1390,19 +1386,6 @@
         musica.play().then(() => {
             btnMusica.classList.add("music-playing");
         }).catch(err => console.log(err));
-
-        // AOS recalcula la geometría de toda la página. En móvil ese trabajo
-        // coincide con el primer gesto táctil y provoca el tirón; se mantiene
-        // únicamente en pantallas de escritorio.
-        if (window.innerWidth > 768) {
-            setTimeout(() => {
-                AOS.init({
-                    duration: 1000,
-                    once: true
-                });
-                AOS.refresh();
-            }, 200);
-        }
 
         const hideScrollHint = () => { scrollHint.hidden = true; };
         window.addEventListener("scroll", hideScrollHint, { passive: true, once: true });
